@@ -17,6 +17,11 @@ public class CreateCategoryUseCaseImpl implements CreateCategoryUseCase {
 
     @Override
     public Category createCategory(Category category) {
+        validateCategory(category);
+        return categoryRepositoryPort.save(category);
+    }
+
+    private void validateCategory(Category category) {
         categoryRepositoryPort.findByName(category.getName()).ifPresent(c -> {
             throw new CategoryAlreadyExistsException("Category already exists");
         });
@@ -29,6 +34,5 @@ public class CreateCategoryUseCaseImpl implements CreateCategoryUseCase {
         if (category.getDescription().length() > 90) {
             throw new CategoryDescriptionTooLongException("Category description cannot be longer than 90 characters");
         }
-        return categoryRepositoryPort.save(category);
     }
 }
