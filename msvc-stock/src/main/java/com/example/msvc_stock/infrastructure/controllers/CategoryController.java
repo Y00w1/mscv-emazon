@@ -12,12 +12,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * REST controller to handle operations related to categories.
+ *  * Maps HTTP requests to appropriate service methods.
+ */
 @RestController
 @RequestMapping("/category")
 @AllArgsConstructor
 public class CategoryController {
     private final CategoryService categoryService;
 
+    /**
+     * Endpoint to create a new category.
+     *
+     * @param createCategoryDto Object containing the data for the category to be created.
+     * @return ResponseEntity with the DTO of the created category and an HTTP status code 201 (CREATED).
+     */
     @PostMapping("/create")
     public ResponseEntity<CategoryDto> createCategory(@Valid @RequestBody CreateCategoryDto createCategoryDto) {
         return new ResponseEntity<>(categoryService.createCategory(createCategoryDto), HttpStatus.CREATED);
