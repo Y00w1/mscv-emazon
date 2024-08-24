@@ -5,6 +5,9 @@ import com.example.msvc_stock.domain.exceptions.CategoryDescriptionIsRequiredExc
 import com.example.msvc_stock.domain.exceptions.CategoryDescriptionTooLongException;
 import com.example.msvc_stock.domain.exceptions.CategoryNameTooLongException;
 import com.example.msvc_stock.domain.models.Category;
+import com.example.msvc_stock.domain.models.Paged;
+import com.example.msvc_stock.domain.models.Pagination;
+import com.example.msvc_stock.domain.models.Sort;
 import com.example.msvc_stock.domain.ports.in.CreateCategoryUseCase;
 import com.example.msvc_stock.domain.ports.out.CategoryRepositoryPort;
 
@@ -38,6 +41,11 @@ public class CreateCategoryUseCaseImpl implements CreateCategoryUseCase {
     public Category createCategory(Category category) {
         validateCategory(category);
         return categoryRepositoryPort.save(category);
+    }
+
+    @Override
+    public Paged<Category> getCategories(Pagination pagination, Sort sort) {
+        return null;
     }
 
     /**

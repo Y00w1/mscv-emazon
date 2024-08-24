@@ -2,15 +2,15 @@ package com.example.msvc_stock.infrastructure.controllers;
 
 import com.example.msvc_stock.application.dto.category.CategoryDto;
 import com.example.msvc_stock.application.dto.category.CreateCategoryDto;
+import com.example.msvc_stock.application.dto.pagination.PaginationDto;
+import com.example.msvc_stock.application.dto.pagination.SortDto;
 import com.example.msvc_stock.application.services.CategoryService;
+import com.example.msvc_stock.domain.models.Paged;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * REST controller to handle operations related to categories.
@@ -31,5 +31,10 @@ public class CategoryController {
     @PostMapping("/create")
     public ResponseEntity<CategoryDto> createCategory(@Valid @RequestBody CreateCategoryDto createCategoryDto) {
         return new ResponseEntity<>(categoryService.createCategory(createCategoryDto), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/get")
+    public ResponseEntity<Paged<CategoryDto>> getCategories(@Valid PaginationDto paginationDto, SortDto sortDto) {
+        return new ResponseEntity<>(categoryService.getCategories(paginationDto, sortDto), HttpStatus.OK);
     }
 }
