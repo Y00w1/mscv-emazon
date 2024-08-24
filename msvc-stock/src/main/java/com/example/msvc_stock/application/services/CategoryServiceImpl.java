@@ -9,6 +9,7 @@ import com.example.msvc_stock.application.dto.pagination.PaginationDto;
 import com.example.msvc_stock.application.dto.pagination.SortDto;
 import com.example.msvc_stock.domain.models.Paged;
 import com.example.msvc_stock.domain.ports.in.CreateCategoryUseCase;
+import com.example.msvc_stock.domain.ports.in.GetCategoriesUseCase;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService {
 
     private final CreateCategoryUseCase createCategoryUseCase;
+    private final GetCategoriesUseCase getCategoriesUseCase;
     private final CategoryMapper mapper;
     private final SortMapper sortMapper;
     private final PaginationMapper paginationMapper;
@@ -31,7 +33,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Paged<CategoryDto> getCategories(PaginationDto paginationDto, SortDto sortDto) {
-        return mapper.toDtoPaged(createCategoryUseCase.getCategories(
+        return mapper.toDtoPaged(getCategoriesUseCase.getCategories(
                 paginationMapper.toDomain(paginationDto),
                 sortMapper.toDomain(sortDto)
         ));

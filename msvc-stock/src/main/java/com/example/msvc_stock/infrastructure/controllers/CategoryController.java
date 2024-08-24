@@ -34,7 +34,13 @@ public class CategoryController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity<Paged<CategoryDto>> getCategories(@Valid PaginationDto paginationDto, SortDto sortDto) {
+    public ResponseEntity<Paged<CategoryDto>> getCategories(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "name") String field,
+            @RequestParam(defaultValue = "asc") String direction) {
+        PaginationDto paginationDto = new PaginationDto(page, size);
+        SortDto sortDto = new SortDto(field, direction);
         return new ResponseEntity<>(categoryService.getCategories(paginationDto, sortDto), HttpStatus.OK);
     }
 }

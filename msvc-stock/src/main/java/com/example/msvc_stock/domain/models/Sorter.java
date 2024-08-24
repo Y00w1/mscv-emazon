@@ -1,10 +1,10 @@
 package com.example.msvc_stock.domain.models;
 
-public class Sort {
+public class Sorter {
     private String field;
     private String direction;
 
-    public Sort(String field, String direction) {
+    public Sorter(String field, String direction) {
         this.field = field;
         this.direction = direction;
     }

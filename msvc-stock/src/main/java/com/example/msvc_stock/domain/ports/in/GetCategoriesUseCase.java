@@ -1,9 +1,10 @@
 package com.example.msvc_stock.domain.ports.in;
 
 import com.example.msvc_stock.domain.models.Category;
-
-import java.util.List;
+import com.example.msvc_stock.domain.models.Paged;
+import com.example.msvc_stock.domain.models.Pagination;
+import com.example.msvc_stock.domain.models.Sorter;
 
 public interface GetCategoriesUseCase {
-    List<Category> getCategories();
+    Paged<Category> getCategories(Pagination pagination, Sorter sorter);
 }

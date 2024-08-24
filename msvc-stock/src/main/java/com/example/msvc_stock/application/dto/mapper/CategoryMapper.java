@@ -13,7 +13,8 @@ import java.util.List;
 public interface CategoryMapper {
     Category toDomain(CreateCategoryDto createCategoryDto);
     CategoryDto toDto(Category category);
-    @Mapping(target = "items", expression = "java(toDtoList(paged.getItems()))")
+    List<CategoryDto> toDto(List<Category> categories);
+    @Mapping(target = "items", expression = "java(toDto(paged.getItems()))")
     @Mapping(target = "page", expression = "java(paged.getPage())")
     @Mapping(target = "size", expression = "java(paged.getSize())")
     @Mapping(target = "total", expression = "java(paged.getTotal())")
