@@ -6,6 +6,7 @@ import com.example.msvc_stock.application.dto.pagination.PaginationDto;
 import com.example.msvc_stock.application.dto.pagination.SortDto;
 import com.example.msvc_stock.application.services.CategoryService;
 import com.example.msvc_stock.domain.models.Paged;
+import com.example.msvc_stock.infrastructure.util.enums.SorterDirection;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -38,7 +39,7 @@ public class CategoryController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "name") String field,
-            @RequestParam(defaultValue = "asc") String direction) {
+            @RequestParam(defaultValue = "ASC") SorterDirection direction) {
         PaginationDto paginationDto = new PaginationDto(page, size);
         SortDto sortDto = new SortDto(field, direction);
         return new ResponseEntity<>(categoryService.getCategories(paginationDto, sortDto), HttpStatus.OK);
