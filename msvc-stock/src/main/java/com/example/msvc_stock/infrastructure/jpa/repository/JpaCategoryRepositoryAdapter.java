@@ -1,12 +1,17 @@
 package com.example.msvc_stock.infrastructure.jpa.repository;
 
 import com.example.msvc_stock.domain.models.Category;
+import com.example.msvc_stock.domain.models.Paged;
+import com.example.msvc_stock.domain.models.Pagination;
+import com.example.msvc_stock.domain.models.Sorter;
 import com.example.msvc_stock.domain.ports.out.CategoryRepositoryPort;
 import com.example.msvc_stock.infrastructure.jpa.mapper.CategoryEntityMapper;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -31,8 +36,9 @@ public class JpaCategoryRepositoryAdapter implements CategoryRepositoryPort {
     }
 
     @Override
-    public List<Category> findAll() {
-        return List.of();
+    public Paged<Category> findAll(Pagination pagination, Sorter sorter) {
+        Pageable pageable = PageRequest.of(pagination.getPage(), pagination.getSize(), Sort.by(Sort.Direction.fromString(sorter.getDirection().name()), sorter.getField()));
+        return entityMapper.toModelPaged(jpaCategoryRepository.findAll(pageable));
     }
 
     @Override
