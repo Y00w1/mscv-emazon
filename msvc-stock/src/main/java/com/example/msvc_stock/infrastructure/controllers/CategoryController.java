@@ -34,6 +34,15 @@ public class CategoryController {
         return new ResponseEntity<>(categoryService.createCategory(createCategoryDto), HttpStatus.CREATED);
     }
 
+    /**
+     * Endpoint to get all categories.
+     *
+     * @param page Page number to be retrieved.
+     * @param size Number of elements to be retrieved.
+     * @param field Field to be sorted by.
+     * @param direction Direction of the sorting (ASC, DESC).
+     * @return ResponseEntity with the DTO of the retrieved categories and an HTTP status code 200 (OK).
+     */
     @GetMapping("/get")
     public ResponseEntity<Paged<CategoryDto>> getCategories(
             @RequestParam(defaultValue = "0") int page,
